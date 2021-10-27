@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route,
 |
 */
 
-Route::get('/', 'app\Http\Controllers\ProductoController@index');
+Route::resource('productos', ProductoController::class);
