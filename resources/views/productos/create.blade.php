@@ -6,40 +6,24 @@
 	<form action="{{ route('productos.store') }}" method="POST" class="row g-3" enctype="multipart/form-data">
 		@csrf
 		<div class="col-md-3">
-		</div>
-		
-		<div class="col-md-3">
-			<label for="nombre" class="form-label">Nombre</label>
-			<input type="text" class="form-control" id="nombre" name="nombre">
+			<label for="NOMBRE_PRODUCTO" class="form-label">Nombre</label>
+			<input type="text" class="form-control" id="NOMBRE_PRODUCTO" name="NOMBRE_PRODUCTO">
 		</div>
 		<div class="col-md-2">
-			<label for="precio_compra" class="form-label">Precio compra</label>
-			<input type="number" class="form-control" id="precio_compra" name="precio_compra">
+			<label for="PRECIO" class="form-label">Precio</label>
+			<input type="number" class="form-control" id="PRECIO" name="PRECIO">
 		</div>
 		<div class="col-md-2">
-			<label for="precio_venta" class="form-label">Precio venta</label>
-			<input type="number" class="form-control" id="precio_venta" name="precio_venta">
+			<label for="CODIGO_PRODUCTO" class="form-label">Código</label>
+			<input type="number" placeholder="6 caracteres" class="form-control" id="CODIGO_PRODUCTO" name="CODIGO_PRODUCTO">
 		</div>
 		<div class="col-md-2">
-			<label for="codigo" class="form-label">Código</label>
-			<input type="number" class="form-control" id="codigo" name="codigo">
-		</div>
-		
-		<div class="col-md-3">
-			<label for="fecha_vencimiento" class="form-label">Fecha de vencimiento</label>
-			<input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
-		</div>
-		<div class="col-md-2">
-			<label for="cantidad" class="form-label">Cantidad</label>
-			<input type="number" class="form-control" id="cantidad" name="cantidad">
-		</div>
-		<div class="col-md-2">
-			<label for="stock_minimo" class="form-label">Stock mínimo</label>
-			<input type="number" class="form-control" id="stock_minimo" name="stock_minimo">
+			<label for="CANTIDAD" class="form-label">Cantidad</label>
+			<input type="number"  class="form-control" id="CANTIDAD" name="CANTIDAD">
 		</div>
 		<div class="col-md-5">
-			<label for="imagen" class="form-label">Imágen</label>
-			<input class="form-control" type="file" id="imagen" name="imagen">
+			<label for="IMAGEN" class="form-label">Imágen</label>
+			<input class="form-control" type="file" id="IMAGEN" name="IMAGEN">
 		</div>
 		<div class="d-grid gap-2">
 			<button type="submit" class="btn btn-primary">Registrar</button>

@@ -40,5 +40,5 @@
 		@endforeach	
 	  </tbody>
 	</table>
-	
+	{{ $productos->links() }}
 @endsection
