@@ -15,7 +15,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = DB::select('select * from productos order by nombre_producto');
+        $productos = Producto::paginate(5);
         return view('productos.index',['productos' => $productos]);
     }
 
@@ -26,7 +26,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        return view('productos.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 'Edit '.$id;
     }
 
     /**
@@ -82,6 +82,6 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'Destroy '.$id;
     }
 }
