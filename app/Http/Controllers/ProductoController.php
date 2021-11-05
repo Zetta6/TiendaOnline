@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -13,7 +15,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return view('productos.index');
+        $productos = DB::select('select * from productos order by nombre_producto');
+        return view('productos.index',['productos' => $productos]);
     }
 
     /**

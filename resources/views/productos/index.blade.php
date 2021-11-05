@@ -1,31 +1,36 @@
-@extends ('layout.layout')
-@section('title','Listado de productos')
+@extends('layout.layout')
+@section('title','productos')
 @section('content')
+	
+	<h2>Listado de productos</h2>
+	
+	@if (session('status'))
+		<div class="alert alert-success">
+		{{ session('status') }}
+		</div>
+	@endif
+	
+	<a class="btn btn-success" href="{{ url('/productos/create') }}" role="button">Nuevo producto</a>
+	<a class="btn btn-success" href="{{ route('productos.create') }}" role="button">Nuevo producto</a>
 	<table class="table">
-		<tr>
-			<th scope="col">Nro</th>
-			<th scope="col">Nombre</th>
-			<th scope="col">apellido</th>
-			<th scope="col">contacto</th>
-		</tr>
-		<tr>
-			<th scope="row">1</th>
-			<td>Mark</td>
-			<td>Otto</td>
-			<td>themarck@gmail.com</td>
-		</tr>
-		<tr>
-			<th scope="row">2</th>
-			<td>Jacob</td>
-			<td>Thornton</td>
-			<td>jacoboth@gmail.com</td>
-		</tr>
+		<thead>
 			<tr>
-			<th scope="row">3</th>
-			<td>larry</td>
-			<td>olsonn</td>
-			<td>theolsonn@gmail.com</td>
-				
-		</tr>
+                <th scope="col">Imagen</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Descripción</th>
+				<th scope="col">Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach($productos as $producto)
+			<tr>
+				<th scope="row">{{ $producto->PRODUCTO_ID }}</th>
+				<td>{{ $producto->NOMBRE_PRODUCTO }}</td>
+				<td>{{ $producto->DESCRIPCION_PRODUCTO }}</td>
+				<td>{{ $producto->PRECIO }} </td>
+			</tr>
+		@endforeach	
+	  </tbody>
 	</table>
+	
 @endsection

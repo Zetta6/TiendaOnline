@@ -7,25 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
-    use HasFactory;
-}
-
-class Producto{
-    public $producto_id;
-    public $nombre_producto;
-    public $precio;
-    public $codigo_producto;
-    public $stock;
-    public $descripcion_producto;
-    public $imagen;
-    public $estado;
-
-    public function __construct() {}
-
-    public static function obtenerProductos($tabla){
-		$bd  = Bd::conectar();
-		$stm = $bd->prepare("SELECT * FROM $tabla ORDER BY producto_id");
-		$stm->execute();
-		return $stm->fetchAll(PDO::FETCH_CLASS,'producto');
-    }
+    protected $table = 'productos';
+    
+    protected $primarykey = 'producto_id';
+    protected $timestamps = false;
+//definición de valores de la tabla
+    protected $fillable = [
+    'PRODUCTO_ID',
+    'CATEGORIA_ID',
+    'NOMBRE_PRODUCTO',
+    'PRECIO',
+    'CODIGO_PRODUCTO',
+    'STOCK',
+    'DESCRPCION_PRODUCTO',
+    'IMAGEN',
+    'ESTADO',
+    ]
 }
