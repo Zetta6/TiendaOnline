@@ -1,8 +1,8 @@
 @extends('layout.layout')
-@section('title','productos')
+@section('title','HOME')
 @section('content')
 	
-	<h2>Listado de productos</h2>
+	<h2>Listado de juegos</h2>
 	
 	@if (session('status'))
 		<div class="alert alert-success">
@@ -29,8 +29,9 @@
 				<td>{{ $producto->DESCRIPCION_PRODUCTO }}</td>
 				<td>{{ $producto->PRECIO }} </td>
 				<td>
-					<form action="{{ route('productos.destroy', $producto->PRODUCTO_ID) }}" method="POST">
                         <a href="{{ route('productos.edit', $producto->PRODUCTO_ID) }}" class="btn btn-secondary">Editar</a>
+						<br></br>
+						<form action="{{ route('productos.destroy', $producto->PRODUCTO_ID) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-warning">Eliminar</button>

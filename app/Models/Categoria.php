@@ -7,19 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
 {
-    use HasFactory;
-}
+  protected $table = 'categorias';
+    
+  protected $primarykey = 'CATEGORIA_ID';
+  public $timestamps = false;
+  
+//definición de valores de la tabla
 
-class Categoria{
-    public $categoria_id;
-    public $nombre;
-
-    public function __construct() {}
-
-    public static function obtenerCategorias($tabla){
-		$bd  = Bd::conectar();
-		$stm = $bd->prepare("SELECT * FROM $tabla ORDER BY categoria_id");
-		$stm->execute();
-		return $stm->fetchAll(PDO::FETCH_CLASS,'categoria');
-    }
+  protected $fillable = [
+  'CATEGORIA_ID',
+  'NOMBRE_CATEGORIA',
+  'DESCRIPCION_CATEGORIA',
+  ];
 }

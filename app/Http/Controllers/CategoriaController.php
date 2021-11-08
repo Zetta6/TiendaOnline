@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::paginate(5);
-        return view('productos.index',['productos' => $productos]);
+        $categorias = Categoria::paginate(5);
+        return view('categorias.index',['categorias' => $categorias]);
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        //
     }
 
     /**
@@ -36,24 +37,16 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-		//return $request->all();
-
-        $nombre_producto      = $request->input('NOMBRE_PRODUCTO');
-        $precio_producto      = $request->input('PRECIO');
-        $codigo_producto      = $request->input('CODIGO_PRODUCTO');
-        $stock_producto       = $request->input('STOCK');
-        $estado_producto      = $request->input('ESTADO');
-        $categoria_producto   = $request->input('CATEGORIA_ID');
-        $descripcion_producto = $request->input('DESCRIPCION_PRODUCTO');
-        $imagen_producto      = $request->input('IMAGEN');
+        $nombre_categoria     = $request->input('NOMBRE_CATEGORIA');
+        $descripcion_categoria = $request->input('DESCRIPCION_CATEGORIA');
         
-        $respuesta = DB::insert("INSERT INTO productos (PRODUCTO_ID, CATEGORIA_ID, NOMBRE_PRODUCTO, PRECIO, CODIGO_PRODUCTO, STOCK, DESCRIPCION_PRODUCTO, IMAGEN, ESTADO)
-        values ( null, '$categoria_producto', '$nombre_producto', '$precio_producto', '$codigo_producto', '$stock_producto', '$descripcion_producto', '$imagen_producto', '$estado_producto')");
+        $respuesta = DB::insert("INSERT INTO categorias (CATEGORIA_ID, NOMBRE_CATEGORIA, DESCRIPCION_CATEGORIA)
+        values ( null, '$nombre_categoria', '$descripcion_categoria')");
 
         if($respuesta){
-			return redirect('/productos')->with('status', 'Nuevo producto registrado con éxito');
+			return redirect('/categorias')->with('status', 'Nueva categoria registrada con éxito');
 		}else{
-			return redirect('/productos/create')->with('status', 'Ocurrio un error');
+			return redirect('/categorias/create')->with('status', 'Ocurrio un error');
 		}
     }
 
@@ -76,7 +69,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        return 'Edit '.$id;
+        //
     }
 
     /**
@@ -99,8 +92,6 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        $productos = Producto::findOrFail($id);
-        $productos->delete();
-        return redirect('/productos')->with('status', 'Producto eliminado con éxito');
+        //
     }
 }

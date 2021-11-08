@@ -9,7 +9,7 @@ class Producto extends Model
 {
     protected $table = 'productos';
     
-    protected $primarykey = 'producto_id';
+    protected $primarykey = 'PRODUCTO_ID';
     public $timestamps = false;
 	//definición de valores de la tabla
     protected $fillable = [
@@ -19,7 +19,7 @@ class Producto extends Model
 		'PRECIO',
 		'CODIGO_PRODUCTO',
 		'STOCK',
-		'DESCRPCION_PRODUCTO',
+		'DESCRIPCION_PRODUCTO',
 		'IMAGEN',
 		'ESTADO'
     ];
