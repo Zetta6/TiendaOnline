@@ -25,7 +25,12 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        $categorias = DB::table('categorias')
+        ->select('CATEGORIA_ID', 'NOMBRE_CATEGORIA')
+        ->orderBy('NOMBRE_CATEGORIA')
+        ->get();
+    return view('productos.create',['categorias'=>$categorias]);
+
     }
 
     /**
@@ -38,23 +43,39 @@ class ProductoController extends Controller
     {
 		//return $request->all();
 
-        $nombre_producto      = $request->input('NOMBRE_PRODUCTO');
-        $precio_producto      = $request->input('PRECIO');
-        $codigo_producto      = $request->input('CODIGO_PRODUCTO');
-        $stock_producto       = $request->input('STOCK');
-        $estado_producto      = $request->input('ESTADO');
-        $categoria_producto   = $request->input('CATEGORIA_ID');
-        $descripcion_producto = $request->input('DESCRIPCION_PRODUCTO');
-        $imagen_producto      = $request->input('IMAGEN');
-        
-        $respuesta = DB::insert("INSERT INTO productos (PRODUCTO_ID, CATEGORIA_ID, NOMBRE_PRODUCTO, PRECIO, CODIGO_PRODUCTO, STOCK, DESCRIPCION_PRODUCTO, IMAGEN, ESTADO)
-        values ( null, '$categoria_producto', '$nombre_producto', '$precio_producto', '$codigo_producto', '$stock_producto', '$descripcion_producto', '$imagen_producto', '$estado_producto')");
+        $request->validate([
+            
+            'CATEGORIA_ID'             => 'required|numeric',
+            'NOMBRE_PRODUCTO'          => 'required|unique:productos',
+            'PRECIO'                   => 'required|numeric',
+            'CODIGO_PRODUCTO'          => 'required|',
+            'STOCK'                    => 'required|numeric',
+            'DESCRIPCION_PRODUCTO'     => 'required',
+            'IMAGEN'                   => 'required',
+            'ESTADO'                   => 'required'
+        ]);
+        //dd($request);exit();
 
-        if($respuesta){
-			return redirect('/productos')->with('status', 'Nuevo producto registrado con éxito');
+        $producto = new Producto();
+
+        $producto->PRODUCTO_ID            = null;
+        $producto->CATEGORIA_ID           = $request->CATEGORIA_ID;
+        $producto->NOMBRE_PRODUCTO        = $request->NOMBRE_PRODUCTO;
+        $producto->PRECIO                 = $request->PRECIO;
+        $producto->CODIGO_PRODUCTO        = $request->CODIGO_PRODUCTO;
+        $producto->STOCK                  = $request->STOCK;
+        $producto->DESCRIPCION_PRODUCTO   = $request->DESCRIPCION_PRODUCTO;
+        $producto->IMAGEN                 = $request->IMAGEN;
+        $producto->ESTADO                 = $request->ESTADO;
+        
+        
+        $respuesta = $producto->save();
+		if($respuesta){
+			return redirect('/productos')->with('success', 'Nuevo producto registrado con éxito');
 		}else{
-			return redirect('/productos/create')->with('status', 'Ocurrio un error');
+			return redirect('/productos/create')->with('warning', 'Ocurrio un error');
 		}
+
     }
 
     /**

@@ -27,15 +27,11 @@
 			<option>No Disponible</option>
 		</select>
 
-		<select class="form-select" aria-label="Default select example" name="CATEGORIA_ID">
- 			<option selected>Seleccione una categoria</option>
-		<?php
-			$categorias = DB::select('select * from categorias');
-			?>
-		@foreach ($categorias as $categoria)
-
-        <option value="{{$categoria->CATEGORIA_ID}}">{{$categoria->NOMBRE_CATEGORIA}}</option>
-		@endforeach
+		<select id="CATEGORIA_ID" class="form-select" name="CATEGORIA_ID">
+			<option value="" selected>Seleccione una categoria</option>
+			@foreach($categorias as $categoria)
+				<option value="{{ $categoria->CATEGORIA_ID }}">{{ $categoria->NOMBRE_CATEGORIA }}</option>
+			@endforeach
 		</select>
 
 		<div class="col-md-5">

@@ -12,23 +12,24 @@
 	<body> 
 		<div class="container-fluid">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark separador">
-		  <div class="container-fluid">
-			<a class="navbar-brand" href="{{ url('productos') }}">Game Station</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url('categorias') }}">Categorias</a>
-        </li>
-		</div>
-			  <form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Buscar</button>
-			  </form>
-			</div>
-</nav>
+				<div class="container-fluid">
+					<a class="navbar-brand" href="{{ url('productos') }}">Game Station</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{ url('categorias') }}">Categorias</a>
+						</li>
+					</div>
+
+					<form class="d-flex">
+						<input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">Buscar</button>
+					</form>
+				</div>
+			</nav>
 
 			<!-- mensajes de alerta -->
 			@if (session('warning'))
@@ -65,8 +66,8 @@
 				</div>
 				  <!-- Copyright -->
 			</footer>
-		</div>
-    <script src="{{ url('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js') }}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  </div>
+
+   		 	<script src="{{ url('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js') }}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  		</div>
 	</body>
 </html>

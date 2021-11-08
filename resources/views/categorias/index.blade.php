@@ -11,11 +11,12 @@
 	@endif
 	
 	<a class="btn btn-success" href="{{ url('/categorias/create') }}" role="button">Nueva categoria</a>
-	<table class="table">
+	<table class="table table-striped">
 		<thead>
 			<tr>
                 <th scope="col">Nombre</th>
 				<th scope="col">Descripción</th>
+				<th scope="col">Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
