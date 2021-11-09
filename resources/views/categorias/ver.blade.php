@@ -1,16 +1,11 @@
 @extends('layout.layout')
-@section('title','HOME')
+@section('title','Listado de categorias')
 @section('content')
 	
-	<h2>Listado de juegos</h2>
+	<h2>Productos de la categoria {{$categoria->NOMBRE_CATEGORIA}}</h2>
 	
-	@if (session('status'))
-		<div class="alert alert-success">
-		{{ session('status') }}
-		</div>
-	@endif
+	<a class="btn btn-success" href="{{ url('/categorias') }}" role="button">Regresar</a>
 	
-	<a class="btn btn-success" href="{{ url('/productos/create') }}" role="button">Nuevo producto</a>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -29,8 +24,7 @@
 				<td>{{ $producto->DESCRIPCION_PRODUCTO }}</td>
 				<td>{{ $producto->PRECIO }} </td>
 				<td>
-					<form action="{{ route('productos.destroy', $producto->PRODUCTO_ID) }}" method="POST">
-						<a href="{{ route('clientes.create') }}" title="show" class="btn btn-info">Comprar</a>	
+					<form action="{{ route('productos.destroy', $producto->PRODUCTO_ID) }}" method="POST">	
 						<a href="{{ route('productos.edit', $producto->PRODUCTO_ID) }}" class="btn btn-secondary">Editar</a>
                         @csrf
                         @method('DELETE')
@@ -41,5 +35,4 @@
 		@endforeach	
 	  	</tbody>
 	</table>
-	{{ $productos->links() }}
 @endsection

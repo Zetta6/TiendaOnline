@@ -58,7 +58,20 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        //
+        $categoria = DB::table('categorias')->where('categoria_id', $id)->first();
+		$productos = DB::table('productos')
+            ->select('PRODUCTO_ID',
+                     'CATEGORIA_ID',
+                     'NOMBRE_PRODUCTO',
+                     'PRECIO',
+                     'CODIGO_PRODUCTO',
+                     'STOCK',
+                     'DESCRIPCION_PRODUCTO',
+                     'IMAGEN',
+                     'ESTADO')
+			->where('CATEGORIA_ID','=',$id)
+            ->get();
+		return view('categorias.ver',['categoria'=>$categoria,'productos'=>$productos]);
     }
 
     /**
@@ -69,7 +82,10 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::All()->where('CATEGORIA_ID', $id)->first();
+
+
+        return view('categorias.edit', ['categoria' => $categoria]);
     }
 
     /**
@@ -81,7 +97,26 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            
+            'NOMBRE_CATEGORIA'          => 'required',
+            'DESCRIPCION_CATEGORIA'     => 'required',
+        
+        ]);
+        //dd($request);exit();
+
+        $editado = $request->input('NOMBRE_CATEGORIA', 'DESCRIPCION_CATEGORIA');
+		$respuesta = DB::table('categorias')
+            ->where('CATEGORIA_ID', $id)
+            ->update(['NOMBRE_CATEGORIA'                => $request->NOMBRE_CATEGORIA,
+                      'DESCRIPCION_CATEGORIA'           => $request->DESCRIPCION_CATEGORIA,
+                    ]);
+			
+		if($respuesta){
+			return redirect('/categorias?page=')->with('success', 'La categoria a sido actualizada exitosamente');
+		}else{
+			return redirect('/categorias')->with('warning', 'No se pudo actualizar la categoria');
+		}
     }
 
     /**
@@ -92,6 +127,11 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $respuesta = DB::table('categorias')->where('CATEGORIA_ID', '=', $id)->delete();
+		if($respuesta){
+			return redirect('/categorias')->with('success', 'La categoria fue eliminada');
+		}else{
+			return redirect('/productos')->with('warning', 'No se pudo eliminar la categorias');
+        }
     }
 }

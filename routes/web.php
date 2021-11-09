@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route,
     App\Http\Controllers\ProductoController,
+    App\Http\Controllers\ClienteController,
     App\Http\Controllers\CategoriaController;
 
 /*
@@ -21,16 +22,10 @@ Route::get('/', function () {
 
 
 // Rutas de Productos
-Route::resource('productos', ProductoController::class)->only([
-    'index', 'create', 'store', 'edit', 'update', 'destroy'
-]);
+Route::resource('productos', ProductoController::class);
 
-
-
+// Rutas para realizar una compra
+Route::resource('clientes', ClienteController::class);
 
 // Rutas de Categorias
 Route::resource('categorias', CategoriaController::class);
-
-Route::resource('categorias', CategoriaController::class)->except([
-    'show'
-]);

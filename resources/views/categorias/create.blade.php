@@ -12,7 +12,7 @@
 		<div class="col-md-5">
 			<label for="DESCRIPCION" class="form-label">Descripción</label>
 			<textarea type="text"  class="form-control" id="DESCRIPCION" rows="3" name="DESCRIPCION_CATEGORIA"></textarea>
-
+		</div>
 		<div class="d-grid gap-2">
 			<button type="submit" class="btn btn-primary">Registrar</button>
 		</div>

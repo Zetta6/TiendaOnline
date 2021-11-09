@@ -51,7 +51,7 @@ class ProductoController extends Controller
             'CODIGO_PRODUCTO'          => 'required|',
             'STOCK'                    => 'required|numeric',
             'DESCRIPCION_PRODUCTO'     => 'required',
-            'IMAGEN'                   => 'required|mimes:jpg,jpeg,png',
+            'IMAGEN'                   => 'required',
             'ESTADO'                   => 'required'
         ]);
         //dd($request);exit();
@@ -67,7 +67,11 @@ class ProductoController extends Controller
         $producto->DESCRIPCION_PRODUCTO   = $request->DESCRIPCION_PRODUCTO;
         $producto->IMAGEN                 = $request->IMAGEN;
         $producto->ESTADO                 = $request->ESTADO;
-        
+
+        if($request->hasFile('IMAGEN')){
+			$producto->IMAGEN = $request->IMAGEN->getClientOriginalName();
+            $request->IMAGEN->move('storage/img/',$producto->IMAGEN);
+        }
         
         $respuesta = $producto->save();
 		if($respuesta){
@@ -124,7 +128,7 @@ class ProductoController extends Controller
             'CODIGO_PRODUCTO'          => 'required|',
             'STOCK'                    => 'required|numeric',
             'DESCRIPCION_PRODUCTO'     => 'required',
-            //'IMAGEN'                   => 'required|mimes:jpg,png,jpeg',
+            'IMAGEN'                   => 'required',
             'ESTADO'                   => 'required'
         ]);
         //dd($request);exit();
@@ -132,20 +136,20 @@ class ProductoController extends Controller
         $editado = $request->input('CATEGORIA_ID', 'NOMBRE_PRODUCTO', 'PRECIO', 'CODIGO_PRODUCTO', 'STOCK', 'DESCRIPCION_PRODUCTO', 'IMAGEN', 'ESTADO');
 		$respuesta = DB::table('productos')
             ->where('PRODUCTO_ID', $id)
-            ->update(['CATEGORIA_ID'                => $editado->CATEGORIA_ID,
-                      'NOMBRE_PRODUCTO'             => $editado->NOMBRE_PRODUCTO,
-                      'PRECIO'                      => $editado->PRECIO,
-                      'CODIGO_PRODUCTO'             => $editado->CODIGO_PRODUCTO,
-                      'STOCK'                       => $editado->STOCK,
-                      'DESCRIPCION_PRODUCTO'        => $editado->DESCRIPCION_PRODUCTO,
-                      'IMAGEN'                      => $editado->IMAGEN,
-                      'ESTADO'                      => $editado->ESTADO
+            ->update(['CATEGORIA_ID'                => $request->CATEGORIA_ID,
+                      'NOMBRE_PRODUCTO'             => $request->NOMBRE_PRODUCTO,
+                      'PRECIO'                      => $request->PRECIO,
+                      'CODIGO_PRODUCTO'             => $request->CODIGO_PRODUCTO,
+                      'STOCK'                       => $request->STOCK,
+                      'DESCRIPCION_PRODUCTO'        => $request->DESCRIPCION_PRODUCTO,
+                      'IMAGEN'                      => $request->IMAGEN,
+                      'ESTADO'                      => $request->ESTADO
                     ]);
 			
 		if($respuesta){
-			return redirect('/productos')->with('success', 'El producto a sido actualizado exitosamente');
+			return redirect('/productos?page=')->with('success', 'El producto a sido actualizado exitosamente');
 		}else{
-			return redirect('/categorias')->with('warning', 'No se pudo actualizar el producto');
+			return redirect('/productos')->with('warning', 'No se pudo actualizar el producto');
 		}
     }
 

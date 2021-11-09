@@ -35,9 +35,9 @@
 			@endforeach
 		</select>
 
-		<div class="col-md-5">
+		<div class="col-md-10">
 			<label for="DESCRIPCION" class="form-label">Descripción</label>
-			<textarea type="text"  class="form-control" id="DESCRIPCION" rows="3" name="DESCRIPCION_PRODUCTO" value="{{ $producto->DESCRIPCION_PRODUCTO }}"></textarea>
+			<input type="text"  class="form-control" id="DESCRIPCION" rows="3" name="DESCRIPCION_PRODUCTO" value="{{ $producto->DESCRIPCION_PRODUCTO }}">
 		</div>
 		<div class="col-md-5">
 			<label for="IMAGEN" class="form-label">Imágen</label>
@@ -45,6 +45,6 @@
 		</div>
         <br>
 		<div class="d-grid gap-2">
-			<button type="submit" class="btn btn-primary">Registrar</button>
+			<button type="submit" class="btn btn-primary">Guardar</button>
 	</form>
 @endsection
