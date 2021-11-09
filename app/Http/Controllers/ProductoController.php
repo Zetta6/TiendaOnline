@@ -51,7 +51,7 @@ class ProductoController extends Controller
             'CODIGO_PRODUCTO'          => 'required|',
             'STOCK'                    => 'required|numeric',
             'DESCRIPCION_PRODUCTO'     => 'required',
-            'IMAGEN'                   => 'required',
+            'IMAGEN'                   => 'required|mimes:jpg,jpeg,png',
             'ESTADO'                   => 'required'
         ]);
         //dd($request);exit();
@@ -97,7 +97,14 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        return 'Edit '.$id;
+        $producto = Producto::All()->where('PRODUCTO_ID', $id)->first();
+
+        $categorias = DB::table('categorias')
+        ->select('CATEGORIA_ID', 'NOMBRE_CATEGORIA')
+        ->orderBy('NOMBRE_CATEGORIA')
+        ->get();
+
+        return view('productos.edit',['producto' => $producto], ['categorias' => $categorias]);
     }
 
     /**
@@ -109,7 +116,37 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            
+            'CATEGORIA_ID'             => 'required|numeric',
+            'NOMBRE_PRODUCTO'          => 'required|unique:productos',
+            'PRECIO'                   => 'required|numeric',
+            'CODIGO_PRODUCTO'          => 'required|',
+            'STOCK'                    => 'required|numeric',
+            'DESCRIPCION_PRODUCTO'     => 'required',
+            //'IMAGEN'                   => 'required|mimes:jpg,png,jpeg',
+            'ESTADO'                   => 'required'
+        ]);
+        //dd($request);exit();
+
+        $editado = $request->input('CATEGORIA_ID', 'NOMBRE_PRODUCTO', 'PRECIO', 'CODIGO_PRODUCTO', 'STOCK', 'DESCRIPCION_PRODUCTO', 'IMAGEN', 'ESTADO');
+		$respuesta = DB::table('productos')
+            ->where('PRODUCTO_ID', $id)
+            ->update(['CATEGORIA_ID'                => $editado->CATEGORIA_ID,
+                      'NOMBRE_PRODUCTO'             => $editado->NOMBRE_PRODUCTO,
+                      'PRECIO'                      => $editado->PRECIO,
+                      'CODIGO_PRODUCTO'             => $editado->CODIGO_PRODUCTO,
+                      'STOCK'                       => $editado->STOCK,
+                      'DESCRIPCION_PRODUCTO'        => $editado->DESCRIPCION_PRODUCTO,
+                      'IMAGEN'                      => $editado->IMAGEN,
+                      'ESTADO'                      => $editado->ESTADO
+                    ]);
+			
+		if($respuesta){
+			return redirect('/productos')->with('success', 'El producto a sido actualizado exitosamente');
+		}else{
+			return redirect('/categorias')->with('warning', 'No se pudo actualizar el producto');
+		}
     }
 
     /**
@@ -120,8 +157,11 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        $productos = Producto::findOrFail($id);
-        $productos->delete();
-        return redirect('/productos')->with('status', 'Producto eliminado con éxito');
+        $respuesta = DB::table('productos')->where('PRODUCTO_ID', '=', $id)->delete();
+		if($respuesta){
+			return redirect('/productos')->with('success', 'Producto eliminado satisfactoriamente');
+		}else{
+			return redirect('/productos')->with('warning', 'No se pudo eliminar el producto sugerido');
+        }
     }
 }

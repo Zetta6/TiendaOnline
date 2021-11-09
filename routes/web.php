@@ -19,6 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('productos', ProductoController::class);
 
+// Rutas de Productos
+Route::resource('productos', ProductoController::class)->only([
+    'index', 'create', 'store', 'edit', 'update', 'destroy'
+]);
+
+
+
+
+// Rutas de Categorias
 Route::resource('categorias', CategoriaController::class);
+
+Route::resource('categorias', CategoriaController::class)->except([
+    'show'
+]);

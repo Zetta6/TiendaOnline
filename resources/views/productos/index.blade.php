@@ -24,13 +24,14 @@
 		<tbody>
 		@foreach($productos as $producto)
 			<tr>
-				<th scope="row">{{ $producto->PRODUCTO_ID }}</th>
+				<th scope="row">{{ $producto->IMAGEN }}</th>
 				<td>{{ $producto->NOMBRE_PRODUCTO }}</td>
 				<td>{{ $producto->DESCRIPCION_PRODUCTO }}</td>
 				<td>{{ $producto->PRECIO }} </td>
 				<td>
                         <a href="{{ route('productos.edit', $producto->PRODUCTO_ID) }}" class="btn btn-secondary">Editar</a>
-						<br></br>
+						<br>
+						</br>
 						<form action="{{ route('productos.destroy', $producto->PRODUCTO_ID) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -39,7 +40,7 @@
 				</td>
 			</tr>
 		@endforeach	
-	  </tbody>
+	  	</tbody>
 	</table>
 	{{ $productos->links() }}
 @endsection
